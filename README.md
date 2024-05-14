@@ -1,5 +1,5 @@
 # face-recognition-attendance
-Final project for subject "Visión Artificial" (Artificial Vision)
+chiquitito
 
 ## Steps to setup the code
 Create a .env file and copy the .env.template content and complete it with your own variables
