@@ -1,0 +1,3 @@
+.env
+.envrc
+app/__pycache__/
