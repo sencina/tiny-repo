@@ -1,5 +1,4 @@
 # POC-chat-with-docs
-chiquitito
 
 ## Steps to setup the code
 Create a .env file and copy the .env.template content and complete it with your own variables
