@@ -1,2 +1,8 @@
 pinecone-client
 python-dotenv
+pypdf
+rapidocr-onnxruntime
+langchain
+langchain-chroma
+langchain-pinecone
+langchain-openai
