@@ -1,12 +1,9 @@
+from env import PINECONE_INDEX_NAME
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
-from dotenv import dotenv_values, load_dotenv
-
-load_dotenv()
-
 
 def ingest(doc_path: str):
     loader = PyPDFLoader(doc_path)
@@ -16,21 +13,23 @@ def ingest(doc_path: str):
 
     docs = text_splitter.split_documents(pages)
 
-    embeddings = OpenAIEmbeddings()
-
-    PineconeVectorStore(embedding=embeddings, index_name=dotenv_values(".env")["PINECONE_INDEX_NAME"]).delete(delete_all=True)
-
-    docsearch = PineconeVectorStore.from_documents(docs, embeddings,
-                                                   index_name=dotenv_values(".env")["PINECONE_INDEX_NAME"])
+    db= init_db()
+    docsearch = db.add_documents(docs)
 
     return docsearch
 
 
-def similarity(db: PineconeVectorStore, str):
+def similarity(str):
+    db = init_db()
     return db.similarity_search(str)
 
 
 def init_db():
     embeddings = OpenAIEmbeddings()
 
-    return PineconeVectorStore(embedding=embeddings, index_name=dotenv_values(".env")["PINECONE_INDEX_NAME"])
+    return PineconeVectorStore(embedding=embeddings, index_name=PINECONE_INDEX_NAME)
+
+def delete_all():
+    db = init_db()
+    res = db.delete(delete_all=True)
+    return res
