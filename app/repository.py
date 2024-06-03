@@ -1,3 +1,5 @@
+from langchain_community.document_loaders import PDFMinerLoader
+
 from env import PINECONE_INDEX_NAME
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
@@ -10,10 +12,10 @@ def get_db():
     return __db
 
 def ingest(doc_path: str):
-    loader = PyPDFLoader(doc_path)
+    loader = PDFMinerLoader(doc_path)
     pages = loader.load_and_split()
 
-    text_splitter = CharacterTextSplitter(separator="\n", chunk_size=200, chunk_overlap=50)
+    text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1000, chunk_overlap=200)
 
     docs = text_splitter.split_documents(pages)
     docsearch = get_db().add_documents(docs)
