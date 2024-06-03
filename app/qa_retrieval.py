@@ -24,5 +24,10 @@ retreival_qa = RetrievalQA.from_chain_type(
     verbose=True,
 )
 
+
+def question_answer(question):
+    return retreival_qa(question)["result"]
+
+
 if __name__ == "__main__":
-    print(retreival_qa("What is the group number?")["result"])
+    print(retreival_qa("In what page of the design patterns book is the Adapter pattern explained")["result"])
