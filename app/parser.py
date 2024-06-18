@@ -9,7 +9,7 @@ model = ChatOpenAI(model="gpt-4o", temperature=0.7,api_key=OPENAI_API_KEY)
 
 def call_json_output_parser():
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "Generate many questions related to the phrase passed.\nFormatting Instructions: {format_instructions}"),
+        ("system", "Generate many questions related to the phrase passed, there must be 1 numeric question.\nFormatting Instructions: {format_instructions}"),
         ("human", "{phrase}")
     ])
 
