@@ -1,8 +1,18 @@
-from pinecone_client import check_connection
-from repository import ingest, similarity, delete_all
+from flask import Flask
+from flask import request
 
-if __name__ == "__main__":
-    # delete_all()
-    # ingest("./data/design_patterns.pdf")
+from qa_retrieval import question_answer
 
-    print(similarity("Tell me about the decorator pattern")[0])
+app = Flask(__name__)
+
+
+@app.route("/ping")
+def ping():
+    return "pong"
+
+
+@app.route("/qa", methods=["POST"])
+def qa():
+    question = request.json["message"]
+    return question_answer(question)
+

@@ -3,7 +3,8 @@ python-dotenv
 pypdf
 rapidocr-onnxruntime
 langchain
-langchain-chroma
+langchain-community
 langchain-pinecone
 langchain-openai
 pdfminer.six
+flask
